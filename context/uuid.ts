@@ -1,15 +1,11 @@
-import 'react-native-get-random-values';
-
-// @ts-expect-error - The crypto polyfill is not typed correctly
-if (typeof crypto === 'undefined') {
-  // @ts-expect-error - The crypto polyfill is not typed correctly
-  global.crypto = {
-    getRandomValues: (arr) => {
-      for (let i = 0; i < arr.length; i++) {
-        arr[i] = Math.floor(Math.random() * 256);
-      }
-    },
-  };
-}
-
-export { v4 } from 'uuid';
+// Robust UUID generator safe across Web, Android, and iOS environments
+export const v4 = (): string => {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0;
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+};
