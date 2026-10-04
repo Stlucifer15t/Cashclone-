@@ -2,7 +2,7 @@ name: Build Android APK
 
 on:
   push:
-    branches: [ arena/01a105a9-cashclone, main ]
+    branches: [ arena/01a105a9-cashclone, arena/01a105fe-cashclone, main ]
   pull_request:
     branches: [ main ]
   workflow_dispatch:
