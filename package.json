@@ -40,7 +40,7 @@
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-native": "0.79.2",
-    "react-native-gesture-handler": "^2.24.0",
+    "react-native-gesture-handler": "2.24.0",
     "react-native-reanimated": "~3.17.5",
     "react-native-safe-area-context": "^5.4.0",
     "react-native-screens": "~4.10.0",
@@ -55,6 +55,9 @@
     "babel-plugin-module-resolver": "^5.0.2",
     "eslint": "^8.57.0",
     "typescript": "^5.8.3"
+  },
+  "overrides": {
+    "react-native-gesture-handler": "2.24.0"
   },
   "private": true
 }
