@@ -1,140 +1,139 @@
-
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
 export const colors = {
-  // Light theme palette
-  primary: '#1A73E8',      // Blue
-  secondary: '#0F9D58',     // Green accent
-  accent: '#4285F4',        // Lighter blue
-  background: '#F7F7FA',    // Light gray background
-  backgroundAlt: '#FFFFFF', // Cards/background
-  text: '#111111',          // Primary text
-  mutedText: '#5F6368',     // Secondary text
-  border: '#E0E3EB',        // Light border
-  danger: '#D93025',        // Danger
+  // Brand palette
+  primary: '#00D632',        // Cash App Electric Green
+  primaryDark: '#00A827',
+  primaryMuted: '#10381F',
+  secondary: '#3B82F6',      // Royal Blue
+  accent: '#8B5CF6',         // Purple
+  warning: '#F59E0B',        // Amber
+  danger: '#EF4444',         // Red
+  success: '#10B981',        // Emerald
+
+  // Base background & surfaces
+  background: '#0D0F12',     // Ultra dark slate
+  surface: '#16191E',        // Card background
+  surfaceElevated: '#20242C',// Elevated cards/modals
+  surfaceHighlight: '#2A303C',
+
+  // Borders & Dividers
+  border: '#272B35',
+  borderLight: '#353B47',
+  divider: '#1F242D',
+
+  // Typography
+  text: '#FFFFFF',
+  textSecondary: '#9CA3AF',
+  textMuted: '#6B7280',
+
+  // Utility colors referenced in components
+  white: '#FFFFFF',
+  black: '#000000',
+  green: '#00D632',
+  darkGray: '#16191E',
+  lightGray: '#272B35',
 };
 
-export const buttonStyles = StyleSheet.create({
-  primary: {
-    backgroundColor: colors.primary,
-    alignSelf: 'center',
-    width: '100%',
-  },
-  secondary: {
-    backgroundColor: colors.secondary,
-    alignSelf: 'center',
-    width: '100%',
-  },
-  backButton: {
-    backgroundColor: colors.backgroundAlt,
-    alignSelf: 'center',
-    width: '100%',
-    borderWidth: 1,
-    borderColor: colors.border,
-  },
-  ghost: {
-    backgroundColor: 'transparent',
-    alignSelf: 'center',
-    width: '100%',
-    borderWidth: 1,
-    borderColor: colors.border,
-  },
-});
-
 export const commonStyles = StyleSheet.create({
-  wrapper: {
-    backgroundColor: colors.background,
-    width: '100%',
-    height: '100%',
-  },
   container: {
     flex: 1,
     backgroundColor: colors.background,
-    width: '100%',
-    height: '100%',
   },
-  scrollContainer: {
-    flex: 1,
-    backgroundColor: colors.background,
+  scrollContent: {
+    paddingHorizontal: 16,
+    paddingTop: 12,
+    paddingBottom: 120,
   },
-  content: {
-    maxWidth: 800,
+  contentMaxWidth: {
+    maxWidth: 600,
     width: '100%',
     alignSelf: 'center',
   },
-  section: {
-    width: '100%',
-    alignItems: 'stretch',
-    paddingHorizontal: 20,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: '800',
-    color: colors.text,
-    marginBottom: 10,
-  },
-  subtitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: colors.mutedText,
-    marginBottom: 8,
-  },
-  text: {
-    fontSize: 15,
-    fontWeight: '500',
-    color: colors.text,
-    marginBottom: 8,
-    lineHeight: 22,
-  },
-  muted: {
-    color: colors.mutedText,
-  },
-  buttonContainer: {
-    width: '100%',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-  },
   card: {
-    backgroundColor: colors.backgroundAlt,
+    backgroundColor: colors.surface,
     borderColor: colors.border,
     borderWidth: 1,
-    borderRadius: 12,
-    padding: 14,
+    borderRadius: 20,
+    padding: 18,
     marginVertical: 8,
-    width: '100%',
-    boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.06)',
+    ...Platform.select({
+      web: {
+        boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.4)',
+      },
+      default: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 6 },
+        shadowOpacity: 0.35,
+        shadowRadius: 10,
+        elevation: 6,
+      },
+    }),
+  },
+  cardElevated: {
+    backgroundColor: colors.surfaceElevated,
+    borderColor: colors.borderLight,
+    borderWidth: 1,
+    borderRadius: 20,
+    padding: 18,
+    marginVertical: 8,
   },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  between: {
+  rowBetween: {
+    flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
   },
-  center: {
-    justifyContent: 'center',
-    alignItems: 'center',
+  title: {
+    fontSize: 24,
+    fontWeight: '800',
+    color: colors.text,
+    letterSpacing: -0.5,
+  },
+  subtitle: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: colors.textSecondary,
+    letterSpacing: 0.2,
+  },
+  text: {
+    fontSize: 15,
+    fontWeight: '500',
+    color: colors.text,
+    lineHeight: 22,
   },
   input: {
-    backgroundColor: colors.backgroundAlt,
+    backgroundColor: colors.surfaceElevated,
     borderColor: colors.border,
     borderWidth: 1,
-    borderRadius: 10,
-    padding: 12,
+    borderRadius: 14,
+    padding: 14,
     color: colors.text,
     fontSize: 16,
-    marginVertical: 6,
-    boxShadow: '0px 1px 3px rgba(0,0,0,0.04)',
+    marginVertical: 8,
   },
-  label: {
-    fontSize: 13,
-    color: colors.mutedText,
-    marginTop: 8,
-    marginBottom: 4,
+  pill: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+    backgroundColor: colors.surfaceElevated,
+    borderWidth: 1,
+    borderColor: colors.border,
   },
-  icon: {
-    width: 60,
-    height: 60,
-    tintColor: colors.text,
+  pillText: {
+    color: colors.textSecondary,
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  pillActive: {
+    backgroundColor: colors.primaryMuted,
+    borderColor: colors.primary,
+  },
+  pillTextActive: {
+    color: colors.primary,
+    fontWeight: '700',
   },
 });

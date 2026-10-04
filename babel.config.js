@@ -21,9 +21,10 @@ module.exports = function (api) {
           alias: {
             '@': './',
             '@components': './components',
-            '@style': './style',
-            '@hooks': './hooks',
+            '@styles': './styles',
             '@types': './types',
+            '@utils': './utils',
+            '@context': './context',
           },
         },
       ],

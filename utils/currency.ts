@@ -1,41 +1,38 @@
-
 import { CurrencyCode } from '../types';
 
-const CURRENCY_SYMBOL: Record<CurrencyCode, string> = {
+export const CURRENCY_SYMBOLS: Record<CurrencyCode, string> = {
   USD: '$',
+  CAD: 'CA$',
   EUR: '€',
   GBP: '£',
   NGN: '₦',
-  INR: '₹',
   JPY: '¥',
-  CAD: 'CA$',
-  AUD: 'A$',
 };
 
-// Simple demo exchange rates relative to USD
-const RATES_TO_USD: Record<CurrencyCode, number> = {
-  USD: 1,
-  EUR: 1.08,
-  GBP: 1.27,
-  NGN: 0.00075,
-  INR: 0.012,
-  JPY: 0.0064,
-  CAD: 0.74,
-  AUD: 0.67,
+// Rates relative to 1 USD
+export const RATES_TO_USD: Record<CurrencyCode, number> = {
+  USD: 1.0,
+  CAD: 0.73,
+  EUR: 1.09,
+  GBP: 1.29,
+  NGN: 0.00065,
+  JPY: 0.0067,
 };
 
-export const convertAmount = (amount: number, from: CurrencyCode, to: CurrencyCode) => {
+export const convertAmount = (amount: number, from: CurrencyCode, to: CurrencyCode): number => {
   if (from === to) return amount;
-  const usd = amount * RATES_TO_USD[from];
-  const toRate = 1 / RATES_TO_USD[to];
-  const converted = usd * toRate;
-  return Math.round(converted * 100) / 100;
+  const inUSD = amount * RATES_TO_USD[from];
+  const converted = inUSD / RATES_TO_USD[to];
+  return to === 'JPY' ? Math.round(converted) : Math.round(converted * 100) / 100;
 };
 
-export const formatAmount = (amount: number, currency: CurrencyCode) => {
-  try {
-    return `${CURRENCY_SYMBOL[currency]}${amount.toFixed(2)}`;
-  } catch {
-    return `${currency} ${amount}`;
+export const formatAmount = (amount: number, currency: CurrencyCode): string => {
+  const symbol = CURRENCY_SYMBOLS[currency] || '$';
+  if (currency === 'JPY') {
+    return `${symbol}${Math.round(amount).toLocaleString()}`;
   }
+  return `${symbol}${Number(amount).toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
 };

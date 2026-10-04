@@ -5,9 +5,12 @@
     "baseUrl": ".",
     "jsx": "react-jsx",
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"],
+      "@components/*": ["./components/*"],
+      "@styles/*": ["./styles/*"],
+      "@types/*": ["./types/*"],
+      "@utils/*": ["./utils/*"],
+      "@context/*": ["./context/*"]
     }
   },
   "include": [
@@ -15,9 +18,11 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
-    "workbox-config.js",
+    "workbox-config.js"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "android",
+    "dist"
   ]
 }
