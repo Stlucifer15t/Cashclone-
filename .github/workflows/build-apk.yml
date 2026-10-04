@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Build Debug APK
+    name: Build Release APK
     runs-on: ubuntu-latest
     env:
       ANDROID_HOME: /usr/local/lib/android/sdk
@@ -45,18 +45,21 @@ jobs:
       - name: Make Gradle executable
         run: chmod +x android/gradlew
 
-      - name: Build Debug APK with Gradle
+      - name: Build Release APK with Gradle
+        # Signed with android/app/debug.keystore for now: the `release` buildType in
+        # android/app/build.gradle falls back to signingConfigs.debug. Add a dedicated
+        # release keystore before publishing the APK to an app store.
         run: |
           cd android
-          ./gradlew assembleDebug --no-daemon -PreactNativeArchitectures=arm64-v8a,armeabi-v7a
+          ./gradlew assembleRelease --no-daemon -PreactNativeArchitectures=arm64-v8a,armeabi-v7a
 
       - name: Locate & Verify APK
         run: |
-          ls -la android/app/build/outputs/apk/debug/
+          ls -la android/app/build/outputs/apk/release/
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: CashClone-debug-apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          name: CashClone-release-apk
+          path: android/app/build/outputs/apk/release/app-release.apk
           if-no-files-found: error
