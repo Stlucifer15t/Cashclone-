@@ -11,6 +11,10 @@ jobs:
   build:
     name: Build Debug APK
     runs-on: ubuntu-latest
+    env:
+      ANDROID_HOME: /usr/local/lib/android/sdk
+      GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx4096m -XX:MaxMetaspaceSize=1024m"
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -33,13 +37,22 @@ jobs:
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
 
+      - name: Configure Android SDK Location & Accept Licenses
+        run: |
+          echo "sdk.dir=$ANDROID_HOME" > android/local.properties
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
+
       - name: Make Gradle executable
         run: chmod +x android/gradlew
 
       - name: Build Debug APK with Gradle
         run: |
           cd android
-          ./gradlew assembleDebug --no-daemon --stacktrace
+          ./gradlew assembleDebug --no-daemon -PreactNativeArchitectures=arm64-v8a,armeabi-v7a
+
+      - name: Locate & Verify APK
+        run: |
+          ls -la android/app/build/outputs/apk/debug/
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
